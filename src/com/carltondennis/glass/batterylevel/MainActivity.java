@@ -1,6 +1,5 @@
 package com.carltondennis.glass.batterylevel;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
 import android.content.Context;
