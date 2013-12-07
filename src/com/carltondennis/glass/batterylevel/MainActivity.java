@@ -20,8 +20,8 @@ public class MainActivity extends Activity {
 		public void onReceive(Context c, Intent i) {
 			int level          = i.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 			int scale          = i.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-			double levelDouble = (new Integer(level)).doubleValue();
-			double scaleDouble = (new Integer(scale)).doubleValue();
+			double levelDouble = Integer.valueOf(level).doubleValue();
+			double scaleDouble = Integer.valueOf(scale).doubleValue();
 			double batteryFrac = levelDouble / scaleDouble;
 			DecimalFormat df   = new DecimalFormat("#%");
 			
