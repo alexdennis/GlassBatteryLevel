@@ -3,5 +3,7 @@
 
     <string name="app_name">GlassBatteryLevel</string>
     <string name="glass_voice_trigger">Battery Level</string>
+    <string name="battery_level_label">Battery Level:</string>
+    <string name="percentage_sign">%</string>
 
 </resources>
