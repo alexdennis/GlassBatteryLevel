@@ -8,9 +8,9 @@ This is an extremely simple application but it works. I found myself saying "Ok 
 
 Screenshots
 ===========
-![Voice Command Trigger](https://raw.github.com/alexdennis/GlassBatteryLevel/master/screenshots/Screenshot_2013-12-02-08-55-59.png)
+![Voice Command Trigger](https://raw.github.com/alexdennis/GlassBatteryLevel/master/screenshots/voice_command.png)
 
-![Battery Level Screen](https://raw.github.com/alexdennis/GlassBatteryLevel/master/screenshots/Screenshot_2013-12-02-08-56-08.png)
+![Battery Level Screen](https://raw.github.com/alexdennis/GlassBatteryLevel/master/screenshots/battery_level.png)
 
 License
 =======
