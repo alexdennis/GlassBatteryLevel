@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Battery Info</string>
-    <string name="glass_voice_trigger">show battery info</string>
+    <string name="glass_voice_trigger">battery level</string>
     <string name="battery_level_label">Battery Level:</string>
     <string name="percentage_sign">%</string>
 
