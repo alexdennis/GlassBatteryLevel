@@ -10,13 +10,17 @@ import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
 import android.content.res.Resources;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 
 import com.google.android.glass.app.Card;
 
 import java.text.DecimalFormat;
+import java.util.Locale;
 
 public class MainActivity extends Activity {
 	private boolean mSpoken = false;
+	
+	public static String TAG = "Battery Info";
 	
 	private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
 		@Override
@@ -44,7 +48,7 @@ public class MainActivity extends Activity {
 			// Display it.
 			Card card = new Card(c);
 			card.setText(levelText);
-			View cardView = card.toView();
+			View cardView = card.getView();
 			setContentView(cardView);
 		}
 	};
@@ -58,7 +62,12 @@ public class MainActivity extends Activity {
         mSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-                // Do nothing.
+                Log.d(TAG, "Status: " + status);
+            	if (status == TextToSpeech.SUCCESS) {
+                    mSpeech.setLanguage(Locale.US);
+                } else if (status == TextToSpeech.ERROR) {
+                	Log.d(TAG, "Unable to setup TTS");
+                }
             }
         });
 	}
