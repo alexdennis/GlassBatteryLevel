@@ -15,10 +15,12 @@ import android.util.Log;
 import com.google.android.glass.app.Card;
 
 import java.text.DecimalFormat;
-import java.util.Locale;
 
 public class MainActivity extends Activity {
 	private boolean mSpoken = false;
+	private boolean mTTSReady = false;
+	private boolean mBatteryInfoRecorded = false;
+	private String mLevelText;
 	
 	public static String TAG = "Battery Info";
 	
@@ -33,25 +35,33 @@ public class MainActivity extends Activity {
 			double batteryFrac = levelDouble / scaleDouble;
 			DecimalFormat df   = new DecimalFormat("#%");
 			
-			String levelText   = 
+			mLevelText = 
 					res.getString(R.string.battery_level_label) 
 					+ " " 
 					+ df.format(batteryFrac);
 			
-			// Speak it.
-			if (!mSpoken) {
-				// This is to avoid repetition
-				mSpeech.speak(levelText, TextToSpeech.QUEUE_FLUSH, null);
-				mSpoken = true;
-			}
+			mBatteryInfoRecorded = true;
+			speakIfPossible();
 			
 			// Display it.
 			Card card = new Card(c);
-			card.setText(levelText);
+			card.setText(mLevelText);
 			View cardView = card.getView();
 			setContentView(cardView);
 		}
 	};
+	
+	private void speakIfPossible()
+	{
+		// Speak it if all the conditions are met.
+		if (mBatteryInfoRecorded && mTTSReady && !mSpoken) {
+			Log.d(TAG, "Speak!");
+			mSpeech.speak(mLevelText, TextToSpeech.QUEUE_FLUSH, null);
+			
+			// Speak it once and only once.
+			mSpoken = true;
+		}
+	}
 	
 	private TextToSpeech mSpeech;
 	
@@ -64,7 +74,8 @@ public class MainActivity extends Activity {
             public void onInit(int status) {
                 Log.d(TAG, "Status: " + status);
             	if (status == TextToSpeech.SUCCESS) {
-                    mSpeech.setLanguage(Locale.US);
+                    mTTSReady = true;
+                    speakIfPossible();
                 } else if (status == TextToSpeech.ERROR) {
                 	Log.d(TAG, "Unable to setup TTS");
                 }
