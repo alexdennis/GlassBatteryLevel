@@ -8,13 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.BroadcastReceiver;
-import android.content.res.Resources;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
 import com.google.android.glass.app.Card;
 
-import java.text.DecimalFormat;
 
 public class MainActivity extends Activity {
 	private boolean mSpoken = false;
@@ -27,18 +25,15 @@ public class MainActivity extends Activity {
 	private BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context c, Intent i) {
-			Resources res 	   = getResources();
 			int level          = i.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 			int scale          = i.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 			double levelDouble = Integer.valueOf(level).doubleValue();
 			double scaleDouble = Integer.valueOf(scale).doubleValue();
-			double batteryFrac = levelDouble / scaleDouble;
-			DecimalFormat df   = new DecimalFormat("#%");
+			double batteryPercentage = (levelDouble / scaleDouble) * 100;
 			
-			mLevelText = 
-					res.getString(R.string.battery_level_label) 
-					+ " " 
-					+ df.format(batteryFrac);
+			mLevelText = getResources().getString(
+					R.string.battery_level_label, batteryPercentage
+			);
 			
 			mBatteryInfoRecorded = true;
 			speakIfPossible();
